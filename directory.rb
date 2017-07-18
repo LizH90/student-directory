@@ -18,17 +18,17 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
+  puts "The students of Villains Academy whose name begins with n are"
   puts "-------------"
 end
 
 def print(students)
-    students.each_with_index do |student, index|
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]}) cohort"
+    students.select do |student|
+      if student[:name].start_with?("n")
+      puts "#{student[:name]} (#{student[:cohort]}) cohort"
     end
+  end
 end
-
-
 
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
