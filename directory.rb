@@ -18,17 +18,18 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy whose names are less than 12 characters long are"
+  puts "The students of Villains Academy are"
   puts "-------------"
 end
 
 def print(students)
-    students.select do |student|
-      if student[:name].length <12
-      puts "#{student[:name]} (#{student[:cohort]}) cohort"
+  i=0
+    while i < students.count
+      puts "#{students[i][:name]} (#{students[i][:cohort]}) cohort"
+      i += 1
     end
-  end
 end
+
 
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
