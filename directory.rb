@@ -18,13 +18,13 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy whose name begins with n are"
+  puts "The students of Villains Academy whose names are less than 12 characters long are"
   puts "-------------"
 end
 
 def print(students)
     students.select do |student|
-      if student[:name].start_with?("n")
+      if student[:name].length <12
       puts "#{student[:name]} (#{student[:cohort]}) cohort"
     end
   end
