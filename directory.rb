@@ -8,14 +8,11 @@ def input_students
 
   # while the name is not empty, repeat this code
   while !name.empty? do
-    #get extra info
     puts "enter cohort".center(30)
-    cohort = gets.chomp.to_sym
-    if cohort = ""
-      cohort = :november 
-    else cohort
+    cohort = gets.chomp.gsub(/\n/,"")
+    if cohort == ""
+      cohort = :november
     end
-
     # add the studen hash to the array with default cohort as November
     students << {name: name, cohort: cohort}
     #let use know student count
@@ -35,10 +32,10 @@ end
 
 def print(students)
   i=0
-    while i < students.count
-    puts "#{students[i][:name]} (#{students[i][:cohort]})".center (30)
-      i += 1
-    end
+  while i < students.count
+  puts "#{students[i][:name]} (#{students[i][:cohort]})".center (30)
+    i += 1
+  end
 end
 
 
