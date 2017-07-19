@@ -13,10 +13,14 @@ def input_students
     if cohort == ""
       cohort = :november
     end
-    # add the studen hash to the array with default cohort as November
+    # add the student hash to the array with default cohort as November
     students << {name: name, cohort: cohort}
-    #let use know student count
-    puts "Now we have #{students.count} students".center(30)
+    #let use know student count take into account singular student case
+    if students[0] == students[-1]
+      puts "Now we have #{students.count} student".center(30)
+    else
+      puts "Now we have #{students.count} students".center(30)
+    end
     #get another name from the user
     name = gets.chomp
 
@@ -31,16 +35,20 @@ def print_header
 end
 
 def print(students)
-  i=0
+  i = 0
   while i < students.count
-  puts "#{students[i][:name]} (#{students[i][:cohort]})".center (30)
-    i += 1
+  puts "#{students[i][:name]} (#{students[i][:cohort]})".center(30)
+  i += 1
   end
 end
 
-
+# update to take into account number of students and give singular form
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(30)
+  if students.count == 1
+    puts "Overall, we have #{students.count} great student".center(30)
+  else
+    puts "Overall, we have #{students.count} great students".center(30)
+  end
 end
 
 students = input_students
