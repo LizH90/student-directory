@@ -4,25 +4,25 @@ def input_students
   #create an empty array
   students = []
   # get the first names
-  name = gets.chomp
+  name = gets.gsub(/\n/,"")
 
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "enter cohort".center(30)
-    cohort = gets.chomp.gsub(/\n/,"")
+    cohort = gets.gsub(/\n/,"")
     if cohort == ""
       cohort = :november
     end
     # add the student hash to the array with default cohort as November
     students << {name: name, cohort: cohort}
     #let use know student count take into account singular student case
-    if students[0] == students[-1]
+    if students.count == 1
       puts "Now we have #{students.count} student".center(30)
     else
       puts "Now we have #{students.count} students".center(30)
     end
     #get another name from the user
-    name = gets.chomp
+    name = gets.gsub(/\n/,"")
 
   end
   # return array of students
