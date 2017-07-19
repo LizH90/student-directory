@@ -29,12 +29,18 @@ def input_students
   students
 end
 
-def print_header
+def print_header(students)
+  if students.count < 1
+    return
+  end
   puts "The students of Villains Academy are".center(30)
   puts "-------------".center(30)
 end
 
 def print(students)
+  if students.count < 1
+    return
+  end
   i = 0
   while i < students.count
   puts "#{students[i][:name]} (#{students[i][:cohort]})".center(30)
@@ -44,6 +50,9 @@ end
 
 # update to take into account number of students and give singular form
 def print_footer(students)
+  if students.count < 1
+    return
+  end
   if students.count == 1
     puts "Overall, we have #{students.count} great student".center(30)
   else
@@ -52,6 +61,6 @@ def print_footer(students)
 end
 
 students = input_students
-print_header
+print_header(students)
 print(students)
 print_footer(students)
