@@ -1,8 +1,38 @@
+
+def interative_menu
+  students = []
+  loop do
+    # 1. print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit " # 9 because we'll be adding more items
+    # 2. read the input and save it into a variable
+    selection = gets.chomp
+    # 3. do what the user has asked
+    case selection
+    when "1"
+      # input the students
+      students = input_students
+    when "2"
+      # show the students
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you mean, try again"
+    end
+  end
+end
+
+
+
 def input_students
   puts "Please enter the names of the students".center(30)
   puts "To finish, just hit return twice".center(30)
   #create an empty array
-  students = []
+  students =[]
   # get the first names
   name = gets.gsub(/\n/,"")
 
@@ -30,7 +60,7 @@ def input_students
 end
 
 def print_header(students)
-  if students.count < 1
+  if students.count <= 0
     return
   end
   puts "The students of Villains Academy are".center(30)
@@ -38,7 +68,7 @@ def print_header(students)
 end
 
 def print(students)
-  if students.count < 1
+  if students.count <= 0
     return
   end
   i = 0
@@ -50,7 +80,7 @@ end
 
 # update to take into account number of students and give singular form
 def print_footer(students)
-  if students.count < 1
+  if students.count <= 0
     return
   end
   if students.count == 1
@@ -60,7 +90,4 @@ def print_footer(students)
   end
 end
 
-students = input_students
-print_header(students)
-print(students)
-print_footer(students)
+interative_menu
