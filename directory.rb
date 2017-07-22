@@ -43,8 +43,13 @@ def input_students
   name = STDIN.gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
+    puts "enter cohort".center(30)
+    cohort = STDIN.gets.chomp
+    if cohort == ""
+      cohort = :november
+    end
     # add the student hash to the array with default cohort as November
-    @students << {name: name, cohort: :november}
+    @students << {name: name, cohort: cohort}
     #let use know student count take into account singular student case
     if @students.count == 1
       puts "Now we have #{@students.count} student".center(30)
