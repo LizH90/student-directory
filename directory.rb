@@ -18,11 +18,16 @@ def interative_menu
 end
 
 def process(selection)
+  feedback_message = " You've selected option"
   case selection
-  when "1" then input_students
-  when "2" then show_student_list
-  when "3" then save_students
-  when "4" then load_students
+  when "1" then puts (feedback_message + " 1").center(30)
+    input_students
+  when "2" then puts (feedback_message + " 2").center(30)
+    show_student_list
+  when "3" then puts (feedback_message + " 3").center(30)
+    save_students
+  when "4" then puts (feedback_message + " 4").center(30)
+    load_students
   when "9" then exit # this will cause the program to terminate
   else puts "I don't know what you mean, try again"
   end
