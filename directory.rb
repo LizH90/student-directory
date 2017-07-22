@@ -17,18 +17,13 @@ def interative_menu
   end
 end
 
-def process(selection)
+def menu_options(selection)
   case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit # this will cause the program to terminate
+  when "1" then input_students
+  when "2" then show_students
+  when "3" then save_students
+  when "4" then load_students
+  when "9" then exit # this will cause the program to terminate
   else
     puts "I don't know what you mean, try again"
   end
@@ -36,15 +31,14 @@ end
 
 def input_students
   puts "Please enter the names of the students".center(30)
-  puts "To finish, just hit return twice".center(30)
+  puts "To finish, just hit return".center(30)
   # get the first names
   name = STDIN.gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "enter cohort".center(30)
     cohort = STDIN.gets.chomp
-    if cohort == ""
-      cohort = :november
+    if cohort == "" then cohort = :november
     end
     # add the student hash to the array with default cohort as November
     create_student_array(name,cohort)
