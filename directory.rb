@@ -91,24 +91,24 @@ end
 def save_students
   puts "Please name the file you want to save"
   # open file for writing
-  file = File.open("{gets.chomp}.csv","w")
-  # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  file = File.open("{gets.chomp}.csv","w") do |file|
+    # iterate over the array of students
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
   puts " What filename would you like to open?"
-  file = File.open(gets.chomp + ".csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    create_student_array(name,cohort)
+  file = File.open(gets.chomp + ".csv", "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      create_student_array(name,cohort)
+    end
   end
-  file.close
 end
 
 def try_load_students
