@@ -89,8 +89,9 @@ def print_footer
 end
 
 def save_students
+  puts "Please name the file you want to save"
   # open file for writing
-  file = File.open("students.csv","w")
+  file = File.open("{gets.chomp}.csv","w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -101,7 +102,8 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  puts " What filename would you like to open?"
+  file = File.open(gets.chomp + ".csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     create_student_array(name,cohort)
