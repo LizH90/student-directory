@@ -34,8 +34,6 @@ def process(selection)
   end
 end
 
-
-
 def input_students
   puts "Please enter the names of the students".center(30)
   puts "To finish, just hit return twice".center(30)
@@ -49,7 +47,7 @@ def input_students
       cohort = :november
     end
     # add the student hash to the array with default cohort as November
-    @students << {name: name, cohort: cohort}
+    create_student_array(name,cohort)
     #let use know student count take into account singular student case
     if @students.count == 1
       puts "Now we have #{@students.count} student".center(30)
@@ -59,6 +57,10 @@ def input_students
     #get another name from the user
     name = STDIN.gets.chomp
   end
+end
+
+def create_student_array(name,cohort)
+  @students << {name: name, cohort: cohort}
 end
 
 def show_students
@@ -103,7 +105,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    create_student_array(name,cohort)
   end
   file.close
 end
