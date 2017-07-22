@@ -1,15 +1,19 @@
 
 @students = []
 
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list fo students.csv"
+  puts "4. Load the list from the students.csv"
+  puts "9. Exit " # 9 because we'll be adding more items
+end
+
 def interative_menu
-  @students = []
   loop do
-    # 1. print the menu and ask the user what to do
+    #print the menu and ask the user what to do
     print_menu
-    # 2. read the input and save it into a variable
-    selection = gets.chomp
-    # 3. do what the user has asked
-    process(selection)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -30,12 +34,26 @@ def process(selection)
   end
 end
 
-def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list fo students.csv"
-  puts "4. Load the list from the students.csv"
-  puts "9. Exit " # 9 because we'll be adding more items
+
+
+def input_students
+  puts "Please enter the names of the students".center(30)
+  puts "To finish, just hit return twice".center(30)
+  # get the first names
+  name = STDIN.gets.chomp
+  # while the name is not empty, repeat this code
+  while !name.empty? do
+    # add the student hash to the array with default cohort as November
+    @students << {name: name, cohort: :november}
+    #let use know student count take into account singular student case
+    if @students.count == 1
+      puts "Now we have #{@students.count} student".center(30)
+    else
+      puts "Now we have #{@students.count} students".center(30)
+    end
+    #get another name from the user
+    name = STDIN.gets.chomp
+  end
 end
 
 def show_students
@@ -44,61 +62,19 @@ def show_students
   print_footer
 end
 
-def input_students
-  puts "Please enter the names of the students".center(30)
-  puts "To finish, just hit return twice".center(30)
-  #create an empty array
-  @students = []
-  # get the first names
-  name = gets.gsub(/\n/,"")
-
-  # while the name is not empty, repeat this code
-  while !name.empty? do
-    puts "enter cohort".center(30)
-    cohort = gets.gsub(/\n/,"")
-    if cohort == ""
-      cohort = :november
-    end
-    # add the student hash to the array with default cohort as November
-    @students << {name: name, cohort: cohort}
-    #let use know student count take into account singular student case
-    if @students.count == 1
-      puts "Now we have #{@students.count} student".center(30)
-    else
-      puts "Now we have #{@students.count} students".center(30)
-    end
-    #get another name from the user
-    name = gets.gsub(/\n/,"")
-
-  end
-  # return array of students
-  @students
-end
-
 def print_header
-  if @students.count <= 0
-    return
-  end
   puts "The students of Villains Academy are".center(30)
   puts "-------------".center(30)
 end
 
 def print_student_list
-  if @students.count <= 0
-    return
-  end
-  i = 0
-  while i < @students.count
-  puts "#{@students[i][:name]} (#{@students[i][:cohort]})".center(30)
-  i += 1
+  @students.each do |student|
+  puts "#{student[:name]} (#{student[:cohort]}) cohort".center(30)
   end
 end
 
 # update to take into account number of students and give singular form
 def print_footer
-  if @students.count <= 0
-    return
-  end
   if @students.count == 1
     puts "Overall, we have #{@students.count} great student".center(30)
   else
@@ -107,7 +83,7 @@ def print_footer
 end
 
 def save_students
-  #open file for writing
+  # open file for writing
   file = File.open("students.csv","w")
   # iterate over the array of students
   @students.each do |student|
@@ -118,8 +94,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
@@ -127,4 +103,17 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else # if filename doesn't exist
+    puts "Sorry, #{filename} does not exist."
+    exit # quit the program
+  end
+end
+
+try_load_students
 interative_menu
